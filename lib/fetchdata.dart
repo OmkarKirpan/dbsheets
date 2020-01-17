@@ -13,29 +13,48 @@ class FetchData extends StatefulWidget {
 }
 
 class _FetchDataState extends State<FetchData> {
-  String data = 'Loding .... ';
-
+  List data;
+  var dbdata;
   @override
   void initState() {
     super.initState();
-    _get();
+    this.getData();
   }
 
-  _get() async {
-    final res = await http.get(widget.url);
-    setState(() => data = _parseDataFromJson(res.body));
+  Future<String> getData() async {
+    var response = await http.get(Uri.encodeFull(widget.url),
+        headers: {"Accept": "application/json"});
+
+    this.setState(() {
+      dbdata = json.decode(response.body);
+      data = dbdata['row'];
+    });
+
+    print(data[0]['sku']);
+
+    return "Success!";
   }
 
-  String _parseDataFromJson(String jsonStr) {
-    final jsonData = json.decode(jsonStr);
-    return jsonData['row'][0]['sku'];
+  Future<void> _refreshData() async {
+    print('refreshing data...');
+    await getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      data,
-      textAlign: TextAlign.center,
+    return new RefreshIndicator(
+      child: new ListView.builder(
+        shrinkWrap: true,
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Card(
+              child: new ListTile(
+            title: new Text(data[index]["name"]),
+            subtitle: new Text(data[index]["sku"] + " " + data[index]["desc"]),
+          ));
+        },
+      ),
+      onRefresh: _refreshData,
     );
   }
 }

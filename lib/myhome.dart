@@ -10,7 +10,7 @@ class MyHome extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             FetchData(
                 url:
@@ -18,7 +18,7 @@ class MyHome extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 50.0),
             ),
-            Text("Hi Omkar"),
+            Text("By Omkar"),
           ],
         ),
       ),
