@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import './model/user.dart';
 
 class SetData extends StatefulWidget {
-  SetData({Key key}) : super(key: key);
+  SetData({Key key, this.pdata}) : super(key: key);
+
+  var pdata;
 
   @override
   _SetDataState createState() => _SetDataState();
@@ -12,6 +14,17 @@ class SetData extends StatefulWidget {
 class _SetDataState extends State<SetData> {
   final _formKey = GlobalKey<FormState>();
   final _user = User();
+
+  @override
+  void initState() {
+    super.initState();
+    this.setState(() {
+      _user.pname = widget.pdata['name'];
+      _user.sku = widget.pdata['sku'];
+      _user.price = widget.pdata['price'].toString();
+    });
+    print(_user.price);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,56 +39,35 @@ class _SetDataState extends State<SetData> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'First name'),
+                    decoration: InputDecoration(labelText: 'Name'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter your first name';
+                        return 'Please enter your name';
                       }
                     },
-                    onSaved: (val) => setState(() => _user.firstName = val),
+                    onSaved: (val) => setState(() => _user.name = val),
                   ),
                   TextFormField(
-                      decoration: InputDecoration(labelText: 'Last name'),
+                      decoration: InputDecoration(labelText: 'Address'),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter your last name.';
+                          return 'Please enter your address.';
                         }
                       },
-                      onSaved: (val) => setState(() => _user.lastName = val)),
+                      onSaved: (val) => setState(() => _user.address = val)),
                   Container(
                     padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                    child: Text('Subscribe'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text('Product Info:'),
+                        Divider(),
+                        Text('Product Name: ' + _user.pname ?? ''),
+                        Text('Product SKU: ' + _user.sku ?? ''),
+                        Text('Product Price: ₹' + _user.price ?? ''),
+                      ],
+                    ),
                   ),
-                  SwitchListTile(
-                      title: const Text('Monthly Newsletter'),
-                      value: _user.newsletter,
-                      onChanged: (bool val) =>
-                          setState(() => _user.newsletter = val)),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                    child: Text('Interests'),
-                  ),
-                  CheckboxListTile(
-                      title: const Text('Cooking'),
-                      value: _user.passions[User.PassionCooking],
-                      onChanged: (val) {
-                        setState(
-                            () => _user.passions[User.PassionCooking] = val);
-                      }),
-                  CheckboxListTile(
-                      title: const Text('Traveling'),
-                      value: _user.passions[User.PassionTraveling],
-                      onChanged: (val) {
-                        setState(
-                            () => _user.passions[User.PassionTraveling] = val);
-                      }),
-                  CheckboxListTile(
-                      title: const Text('Hiking'),
-                      value: _user.passions[User.PassionHiking],
-                      onChanged: (val) {
-                        setState(
-                            () => _user.passions[User.PassionHiking] = val);
-                      }),
                   Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 16.0),
@@ -97,7 +89,11 @@ class _SetDataState extends State<SetData> {
   }
 
   _showDialog(BuildContext context) {
-    Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text('Submitting form ' + _user.firstName)));
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text('Submitting form ' + _user.name)));
   }
 }
+
+// _user.pname
+// _user.sku
+//  _user.price

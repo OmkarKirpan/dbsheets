@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:dbsheets/setdata.dart';
 import 'dart:convert';
 
 class FetchData extends StatefulWidget {
@@ -40,6 +40,14 @@ class _FetchDataState extends State<FetchData> {
     await getData();
   }
 
+  void _pushSaved(var data) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (BuildContext context) {
+        return SetData(pdata: data);
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new RefreshIndicator(
@@ -48,10 +56,15 @@ class _FetchDataState extends State<FetchData> {
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
           return new Card(
-              child: new ListTile(
-            title: new Text(data[index]["name"]),
-            subtitle: new Text(data[index]["sku"] + " " + data[index]["desc"]),
-          ));
+            child: new ListTile(
+              title: new Text(data[index]["name"]),
+              subtitle:
+                  new Text(data[index]["sku"] + " " + data[index]["desc"]),
+              onTap: () {
+                _pushSaved(data[index]);
+              },
+            ),
+          );
         },
       ),
       onRefresh: _refreshData,
