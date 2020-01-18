@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import './model/user.dart';
+import 'package:dbsheets/model/user.dart';
 
 class SetData extends StatefulWidget {
   SetData({Key key, this.pdata}) : super(key: key);
@@ -25,6 +25,9 @@ class _SetDataState extends State<SetData> {
       _user.price = widget.pdata['price'].toString();
     });
     print(_user.price);
+    var box = Hive.openBox<User>('user');
+    print("User box opened");
+    print(box);
   }
 
   @override
@@ -79,7 +82,8 @@ class _SetDataState extends State<SetData> {
                             final form = _formKey.currentState;
                             if (form.validate()) {
                               form.save();
-                              setData(_user);
+                              saveUser(_user);
+                              // setData(_user);
                               _showDialog(context);
                             }
                           },
@@ -99,6 +103,7 @@ class _SetDataState extends State<SetData> {
   @override
   void dispose() {
     Hive.close();
+    print("Box closed.");
     super.dispose();
   }
 }

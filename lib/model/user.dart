@@ -20,6 +20,12 @@ class User {
   User(this.name, this.address, this.pname, this.sku, this.price);
 }
 
+void saveUser(User user) {
+  var userBox = Hive.box<User>("user");
+  userBox.add(user);
+  print("UserBox saved.");
+}
+
 Future<String> setData(User tuser) async {
   var queryParams = {
     'action': 'order',

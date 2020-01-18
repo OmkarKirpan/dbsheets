@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:dbsheets/setdata.dart';
 import 'dart:convert';
@@ -44,19 +43,7 @@ class _FetchDataState extends State<FetchData> {
   void _pushSaved(var data) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (BuildContext context) {
-        return FutureBuilder(
-          future: Hive.openBox('user'),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData)
-                return Text(snapshot.error.toString());
-              else
-                return SetData(pdata: data);
-            } else
-              return Scaffold();
-          },
-        );
-        // return SetData(pdata: data);
+        return SetData(pdata: data);
       }),
     );
   }
