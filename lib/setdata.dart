@@ -5,7 +5,7 @@ import './model/user.dart';
 class SetData extends StatefulWidget {
   SetData({Key key, this.pdata}) : super(key: key);
 
-  var pdata;
+  final pdata;
 
   @override
   _SetDataState createState() => _SetDataState();
@@ -44,6 +44,7 @@ class _SetDataState extends State<SetData> {
                       if (value.isEmpty) {
                         return 'Please enter your name';
                       }
+                      return null;
                     },
                     onSaved: (val) => setState(() => _user.name = val),
                   ),
@@ -53,6 +54,7 @@ class _SetDataState extends State<SetData> {
                         if (value.isEmpty) {
                           return 'Please enter your address.';
                         }
+                        return null;
                       },
                       onSaved: (val) => setState(() => _user.address = val)),
                   Container(
