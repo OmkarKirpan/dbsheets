@@ -4,10 +4,11 @@ import 'dart:convert';
 class User {
   String name = '';
   String address = '';
-
   String pname = 'Mi Band 3';
   String sku = 'XMSH05HM';
   String price = '1599';
+
+  User(this.name, this.address, this.pname, this.sku, this.price);
 }
 
 Future<String> setData(User tuser) async {

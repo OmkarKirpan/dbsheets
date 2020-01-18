@@ -13,7 +13,7 @@ class SetData extends StatefulWidget {
 
 class _SetDataState extends State<SetData> {
   final _formKey = GlobalKey<FormState>();
-  final _user = User();
+  final _user = User('', '', '', '', '');
 
   @override
   void initState() {
