@@ -76,7 +76,7 @@ class _SetDataState extends State<SetData> {
                             final form = _formKey.currentState;
                             if (form.validate()) {
                               form.save();
-                              _user.save();
+                              setData(_user);
                               _showDialog(context);
                             }
                           },

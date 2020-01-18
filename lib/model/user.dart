@@ -8,34 +8,29 @@ class User {
   String pname = 'Mi Band 3';
   String sku = 'XMSH05HM';
   String price = '1599';
+}
 
-  Future<String> setData() async {
-    var queryParams = {
-      'action': 'order',
-      'name': name,
-      'address': address,
-      'pname': pname,
-      'sku': sku,
-      'price': price
-    };
-    var baseurl = Uri.https(
-        "script.google.com",
-        "/macros/s/AKfycbxA4GeoaUQs8ZeTso6YvdpWqIp5jPCKhrCUgU6-/exec",
-        queryParams);
-    var response = await http.get(
-      baseurl,
-      headers: {"Accept": "application/json"},
-    );
+Future<String> setData(User tuser) async {
+  var queryParams = {
+    'action': 'order',
+    'name': tuser.name,
+    'address': tuser.address,
+    'pname': tuser.pname,
+    'sku': tuser.sku,
+    'price': tuser.price
+  };
+  var baseurl = Uri.https(
+      "script.google.com",
+      "/macros/s/AKfycbxA4GeoaUQs8ZeTso6YvdpWqIp5jPCKhrCUgU6-/exec",
+      queryParams);
+  var response = await http.get(
+    baseurl,
+    headers: {"Accept": "application/json"},
+  );
 
-    var data = json.decode(response.body);
+  var data = json.decode(response.body);
+  print('saving user using a web service ' + tuser.name);
+  print(data['row']);
 
-    print(data['row']);
-
-    return data['result'];
-  }
-
-  save() {
-    print('saving user using a web service ' + name);
-    setData();
-  }
+  return data['result'];
 }
