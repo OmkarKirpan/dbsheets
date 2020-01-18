@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import './model/user.dart';
 
@@ -93,6 +94,12 @@ class _SetDataState extends State<SetData> {
   _showDialog(BuildContext context) {
     Scaffold.of(context)
         .showSnackBar(SnackBar(content: Text('Submitting form ' + _user.name)));
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }
 
