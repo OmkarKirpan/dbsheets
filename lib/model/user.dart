@@ -1,11 +1,20 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:hive/hive.dart';
 
+part 'user.g.dart';
+
+@HiveType(typeId: 0)
 class User {
+  @HiveField(0)
   String name = '';
+  @HiveField(1)
   String address = '';
+  @HiveField(2)
   String pname = 'Mi Band 3';
+  @HiveField(3)
   String sku = 'XMSH05HM';
+  @HiveField(4)
   String price = '1599';
 
   User(this.name, this.address, this.pname, this.sku, this.price);
