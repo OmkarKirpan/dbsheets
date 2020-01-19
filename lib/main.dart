@@ -11,7 +11,8 @@ void main() async {
   // Hive.init(appDocumentDir.path);
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
-  Box<User> box = await Hive.openBox<User>('user');
+  await Hive.openBox<User>('user');
+  await Hive.openBox('product');
   runApp(MyApp());
 }
 

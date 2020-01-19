@@ -49,7 +49,6 @@ class _MyHomeState extends State<MyHome> {
   @override
   void dispose() {
     // TODO: implement dispose
-
     Hive.close();
     super.dispose();
   }

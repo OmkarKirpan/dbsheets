@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:dbsheets/offlinewidget.dart';
 import 'dart:convert';
@@ -15,10 +16,16 @@ class FetchData extends StatefulWidget {
 class _FetchDataState extends State<FetchData> {
   List data;
   var dbdata;
+  String _products;
   @override
   void initState() {
     super.initState();
-    this.getData();
+    var pBox = Hive.box("product");
+    if (pBox.containsKey('products')) {
+      data = jsonDecode(pBox.get("products"));
+    } else {
+      this.getData();
+    }
   }
 
   Future<String> getData() async {
@@ -30,13 +37,17 @@ class _FetchDataState extends State<FetchData> {
       data = dbdata['row'];
     });
 
-    print(data[0]['sku']);
-
+    _products = jsonEncode(data);
+    var pBox = Hive.box("product");
+    pBox.put("products", _products);
+    print("Products");
+    print(_products);
     return "Success!";
   }
 
   Future<void> _refreshData() async {
     print('refreshing data...');
+    print(_products);
     await getData();
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:dbsheets/setdata.dart';
-import 'package:hive/hive.dart';
 
 import 'package:dbsheets/model/user.dart';
 
