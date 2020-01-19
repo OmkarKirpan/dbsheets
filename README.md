@@ -1,16 +1,11 @@
 # dbsheets
 
-A new Flutter project.
+Android app with Google sheets as a database.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Description
 
-A few resources to get you started if this is your first Flutter project:
+The android app can list products from google sheet and can take the order and set it to google sheet.
+The android app can work offline, that is saving data to app local database and then synchronize the data with google sheet when the app has connectivity.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[sheet link](https://docs.google.com/spreadsheets/d/1jvQ3Trd0-ngp9jEQdHS-KBY5IeL9LO3vrFl9hzxTXUk/edit#gid=536610917)
