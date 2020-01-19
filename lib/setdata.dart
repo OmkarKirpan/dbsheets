@@ -7,14 +7,13 @@ class SetData extends StatefulWidget {
   SetData({Key key, this.pdata}) : super(key: key);
 
   final pdata;
-
   @override
   _SetDataState createState() => _SetDataState();
 }
 
 class _SetDataState extends State<SetData> {
   final _formKey = GlobalKey<FormState>();
-  final _user = User('', '', '', '', '');
+  final _user = User('', '', '', '', '', false);
 
   @override
   void initState() {
@@ -25,9 +24,6 @@ class _SetDataState extends State<SetData> {
       _user.price = widget.pdata['price'].toString();
     });
     print(_user.price);
-    var box = Hive.openBox<User>('user');
-    print("User box opened");
-    print(box);
   }
 
   @override
@@ -94,12 +90,5 @@ class _SetDataState extends State<SetData> {
   _showDialog(BuildContext context) {
     Scaffold.of(context).showSnackBar(
         SnackBar(content: Text('Submitting Order for ' + _user.name)));
-  }
-
-  @override
-  void dispose() {
-    Hive.close();
-    print("Box closed.");
-    super.dispose();
   }
 }

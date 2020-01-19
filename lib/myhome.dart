@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:dbsheets/fetchdata.dart';
+import 'package:hive/hive.dart';
 // import 'package:dbsheets/setdata.dart';
 
-class MyHome extends StatelessWidget {
+class MyHome extends StatefulWidget {
+  @override
+  _MyHomeState createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     // void _pushSaved() {
@@ -38,5 +44,13 @@ class MyHome extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    Hive.close();
+    super.dispose();
   }
 }

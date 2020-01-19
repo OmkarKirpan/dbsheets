@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:dbsheets/setdata.dart';
+import 'package:hive/hive.dart';
 
-class OfflineWidget extends StatelessWidget {
+import 'package:dbsheets/model/user.dart';
+
+class OfflineWidget extends StatefulWidget {
   OfflineWidget({Key key, this.pdata}) : super(key: key);
   final pdata;
+
+  @override
+  _OfflineWidgetState createState() => _OfflineWidgetState();
+}
+
+class _OfflineWidgetState extends State<OfflineWidget> {
+  @override
+  void initState() {
+    super.initState();
+    runsync();
+    print("suskjfks running");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +32,7 @@ class OfflineWidget extends StatelessWidget {
           Widget child,
         ) {
           final bool connected = connectivity != ConnectivityResult.none;
+          // runsync(connected);
           return Stack(
             fit: StackFit.expand,
             children: [
@@ -54,7 +71,7 @@ class OfflineWidget extends StatelessWidget {
             ],
           );
         },
-        child: SetData(pdata: pdata),
+        child: SetData(pdata: widget.pdata),
       ),
     );
   }
