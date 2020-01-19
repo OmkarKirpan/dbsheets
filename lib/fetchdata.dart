@@ -14,7 +14,10 @@ class FetchData extends StatefulWidget {
 }
 
 class _FetchDataState extends State<FetchData> {
-  List data;
+  List data = [
+    {"sku": "D001", "name": "Dummy 1", "desc": "Dummy 1 watch", "price": 1696},
+    {"sku": "D002", "name": "Dummy 2", "desc": "Dummy 2 watch", "price": 1969},
+  ];
   var dbdata;
   String _products;
   @override
@@ -26,6 +29,7 @@ class _FetchDataState extends State<FetchData> {
     } else {
       this.getData();
     }
+    this.getData();
   }
 
   Future<String> getData() async {
