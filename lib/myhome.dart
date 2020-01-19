@@ -41,6 +41,13 @@ class _MyHomeState extends State<MyHome> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _refreshProducts();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // void _pushSaved() {
     //   Navigator.of(context).push(
@@ -53,12 +60,12 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Ok Sheets"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: _refreshProducts,
-          )
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.refresh),
+        //     onPressed: _refreshProducts,
+        //   )
+        // ],
       ),
       body: Center(
         child: Column(
