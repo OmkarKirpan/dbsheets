@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:dbsheets/setdata.dart';
+import 'package:dbsheets/offlinewidget.dart';
 import 'dart:convert';
 
 class FetchData extends StatefulWidget {
@@ -43,7 +43,7 @@ class _FetchDataState extends State<FetchData> {
   void _pushSaved(var data) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (BuildContext context) {
-        return SetData(pdata: data);
+        return OfflineWidget(pdata: data);
       }),
     );
   }

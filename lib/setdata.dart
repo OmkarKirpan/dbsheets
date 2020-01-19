@@ -32,72 +32,68 @@ class _SetDataState extends State<SetData> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        child: Builder(
-          builder: (context) => Form(
-            key: _formKey,
-            child: Column(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      child: Builder(
+        builder: (context) => Form(
+          key: _formKey,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Name'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
+              onSaved: (val) => setState(() => _user.name = val),
+            ),
+            TextFormField(
+                decoration: InputDecoration(labelText: 'Address'),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your address.';
+                  }
+                  return null;
+                },
+                onSaved: (val) => setState(() => _user.address = val)),
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Name'),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter your name';
+                  Text('Product Info:'),
+                  Divider(),
+                  Text('Product Name: ' + _user.pname ?? ''),
+                  Text('Product SKU: ' + _user.sku ?? ''),
+                  Text('Product Price: ₹' + _user.price ?? ''),
+                ],
+              ),
+            ),
+            Container(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 16.0),
+                child: RaisedButton(
+                    onPressed: () {
+                      final form = _formKey.currentState;
+                      if (form.validate()) {
+                        form.save();
+                        saveUser(_user);
+                        // setData(_user);
+                        _showDialog(context);
                       }
-                      return null;
                     },
-                    onSaved: (val) => setState(() => _user.name = val),
-                  ),
-                  TextFormField(
-                      decoration: InputDecoration(labelText: 'Address'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter your address.';
-                        }
-                        return null;
-                      },
-                      onSaved: (val) => setState(() => _user.address = val)),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text('Product Info:'),
-                        Divider(),
-                        Text('Product Name: ' + _user.pname ?? ''),
-                        Text('Product SKU: ' + _user.sku ?? ''),
-                        Text('Product Price: ₹' + _user.price ?? ''),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 16.0),
-                      child: RaisedButton(
-                          onPressed: () {
-                            final form = _formKey.currentState;
-                            if (form.validate()) {
-                              form.save();
-                              saveUser(_user);
-                              // setData(_user);
-                              _showDialog(context);
-                            }
-                          },
-                          child: Text('Save'))),
-                ]),
-          ),
+                    child: Text('Save'))),
+          ]),
         ),
       ),
     );
   }
 
   _showDialog(BuildContext context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Submitting form ' + _user.name)));
+    Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text('Submitting Order for ' + _user.name)));
   }
 
   @override
@@ -107,7 +103,3 @@ class _SetDataState extends State<SetData> {
     super.dispose();
   }
 }
-
-// _user.pname
-// _user.sku
-//  _user.price
